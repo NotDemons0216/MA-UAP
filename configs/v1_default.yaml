@@ -1,0 +1,45 @@
+schema_version: "1.0"
+mode: ma_uep
+
+model:
+  path: models/Qwen2.5-1.5B-Base
+  device: cuda:0
+
+dataset:
+  name: wikitext-2-raw-v1
+  split: test
+  path: null
+  stride: 128
+  max_length: 256
+
+scope:
+  blocks: [0, 2, 15, 23, 27]
+  modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+importance:
+  root: task1_weight_importance/outputs/weight_importance
+  allocation_dir: outputs/prepared/allocation
+  recompute: false
+
+uep:
+  ratios:
+    high: 0.05
+    medium: 0.15
+    low: 0.80
+
+ecc:
+  bch_path: null          # 默认使用仓库根下 BCH/
+
+anomaly_guard:
+  enabled: true
+  thresholds: outputs/prepared/thresholds/tensor_thresholds.json
+
+channel:
+  mode: ber
+  ber: 0.0001
+  bad_weights: 0
+  k_bits: 1
+  seed: 42
+
+output:
+  root: outputs

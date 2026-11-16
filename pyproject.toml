@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ma-uep"
+version = "1.0.0"
+description = "MA-UEP V1.0: model-aware unequal error protection for LLM weights"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+    "torch>=2.1",
+    "transformers>=4.40",
+    "pyarrow>=14.0",
+]
+
+[project.scripts]
+ma-uep = "ma_uep.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

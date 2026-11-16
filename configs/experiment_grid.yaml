@@ -1,0 +1,35 @@
+﻿# 批量实验网格：run.py batch --config configs/experiment_grid.yaml
+base:
+  model:
+    path: models/Qwen2.5-1.5B-Base
+    device: cuda:0
+  dataset:
+    split: test
+    stride: 128
+    max_length: 256
+  scope:
+    blocks: [0, 2, 15, 23, 27]
+    modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+  importance:
+    root: outputs/prepared/smax
+    allocation_dir: outputs/prepared/allocation
+  uep:
+    ratios:
+      high: 0.05
+      medium: 0.15
+      low: 0.80
+  anomaly_guard:
+    enabled: true
+    thresholds: outputs/prepared/thresholds/tensor_thresholds.json
+  channel:
+    mode: ber
+    ber: 0.0001
+    seed: 42
+  output:
+    root: outputs
+
+# 网格：外层 mode / ber / seed，全部组合
+grid:
+  mode: [ma_uep, ma_uep_without_guard, no_protection, random_uep]
+  ber: [1.0e-5, 1.0e-4]
+  seed: [42]

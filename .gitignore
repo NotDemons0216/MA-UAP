@@ -1,0 +1,20 @@
+﻿# 模型与大数据（使用者自行准备）
+models/
+data/raw/
+*.safetensors
+
+# 实验产物
+outputs/
+releases/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+build/
+dist/
+.pytest_cache/
+# 编译/临时产物
+tmp*/
+torchinductor_*/
