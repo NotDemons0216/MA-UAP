@@ -51,7 +51,7 @@ huggingface-cli download Qwen/Qwen2.5-1.5B-Base --local-dir models/Qwen2.5-1.5B-
 
 ---
 
-## 一条龙准备等级图（首次约 12 分钟）
+## 一条龙准备等级图（首次约 6 分钟）
 
 ```bash
 python run.py prepare
@@ -61,9 +61,13 @@ python run.py prepare
 
 | 步骤 | 内容 | 耗时 |
 |---|---|---:|
-| ① | 在 WikiText-2 上采集 35 个 Linear 的输入激活 RMS（F） | ~2 分钟 |
-| ② | 逐权重逐 bit 计算 ΔW，得到 Smax = max_b F·|ΔW| | ~8 分钟 |
-| ③ | 全局排序 → 高/中/低等级图 + 异常遏制阈值 | ~1 分钟 |
+| ① | 在 WikiText-2 上采集 35 个 Linear 的输入激活 RMS（F） | 约 4 分钟 |
+| ② | 逐权重逐 bit 计算 ΔW，得到 Smax = max_b F·|ΔW| | 约 2 分钟 |
+| ③ | 全局排序 → 高/中/低等级图 + 异常遏制阈值 | 约 1 分钟 |
+
+实测（RTX 4060 Laptop，5 个 Block）：F 采集 242 s、Smax 扫描 111 s，合计约 6 分钟。
+与开发期历史等级图比对：**233,963,520 个权重中仅 4 个分类不同（一致率 99.999998%）**，
+差异全部位于阈值边界，属浮点舍入。
 
 产物：
 

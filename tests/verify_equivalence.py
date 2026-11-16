@@ -106,7 +106,7 @@ def _require_dev_artifacts(*paths):
 
 def main() -> int:
     _require_dev_artifacts(REPO / "ECC" / "outputs" / "allocation", REPO / "task1_weight_importance")
-    _require_dev_artifacts(ROOT.parent / "ECC" / "outputs" / "allocation", ROOT.parent / "task1_weight_importance")
+    _require_dev_artifacts(REPO / "ECC" / "outputs" / "allocation", REPO / "task1_weight_importance")
     print("=== L2：重新计算等级图并与现有产物逐字节比较 ===")
     l2 = check_l2()
     print(f"全部一致: {l2['all_match']}")
