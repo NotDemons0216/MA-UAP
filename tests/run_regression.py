@@ -60,6 +60,7 @@ def _require_dev_artifacts(*paths):
         raise SystemExit(0)
 
 def main() -> int:
+    _require_dev_artifacts(ROOT / "ECC" / "outputs" / "allocation", ROOT / "task1_weight_importance")
     _require_dev_artifacts(ROOT / "ECC" / "outputs" / "allocation")
     import argparse
     import yaml

@@ -67,6 +67,7 @@ def _require_dev_artifacts(*paths):
         raise SystemExit(0)
 
 def main() -> int:
+    _require_dev_artifacts(ROOT / "ECC" / "outputs" / "allocation", ROOT / "task1_weight_importance")
     _require_dev_artifacts(ROOT / "ECC" / "outputs" / "allocation")
     manager = SafetensorsManager(MODEL)
     thresholds = json.loads(THRESHOLDS.read_text(encoding="utf-8"))["thresholds"]
