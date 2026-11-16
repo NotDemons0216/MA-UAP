@@ -17,7 +17,7 @@ scope:
   modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
 
 importance:
-  root: task1_weight_importance/outputs/weight_importance
+  root: outputs/prepared/smax
   allocation_dir: outputs/prepared/allocation
   recompute: false
 

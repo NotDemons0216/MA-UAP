@@ -56,12 +56,18 @@ class ExperimentRunner:
             self.results["elapsed_seconds"] = time.perf_counter() - started
             return self.results
 
-        # 4 重要性数据
+        # 4 重要性数据（可选：只用于元数据描述，运行时并不需要）
         source_dir = Path(cfg.importance.root)
         if not source_dir.is_absolute():
             source_dir = self.repo_root / source_dir
-        importance = ImportanceSource(source_dir, cfg.scope.blocks, cfg.scope.modules)
-        self.results["importance"] = importance.describe()
+        try:
+            importance = ImportanceSource(source_dir, cfg.scope.blocks,
+                                          cfg.scope.modules)
+            self.results["importance"] = importance.describe()
+        except FileNotFoundError:
+            self.results["importance"] = {
+                "available": False,
+                "hint": f"未找到 {source_dir}；可运行 python run.py prepare --keep-smax 生成"}
 
         # 5 等级图
         alloc_dir = Path(cfg.importance.allocation_dir)

@@ -35,7 +35,7 @@ class ScopeConfig:
 
 @dataclass
 class ImportanceConfig:
-    root: str = "task1_weight_importance/outputs/weight_importance"
+    root: str = "outputs/prepared/smax"
     allocation_dir: str = "outputs/prepared/allocation"
     recompute: bool = False
 
