@@ -49,7 +49,18 @@ def build_config(mode: str, channel_mode: str, ber: float, k_bits: int) -> dict:
     }
 
 
+
+def _require_dev_artifacts(*paths):
+    missing = [str(p) for p in paths if not Path(p).exists()]
+    if missing:
+        print("[skip] 该脚本需要开发期的历史产物，发布版不包含：")
+        for m in missing:
+            print("   -", m)
+        print("这些产物可由 python run.py prepare 重新生成，但目录布局与开发期不同。")
+        raise SystemExit(0)
+
 def main() -> int:
+    _require_dev_artifacts(ROOT / "ECC" / "outputs" / "allocation")
     import argparse
     import yaml
     parser = argparse.ArgumentParser()
